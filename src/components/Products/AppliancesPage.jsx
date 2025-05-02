@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Search, ShoppingCart, User, Heart, Menu, ChevronDown, Star, Filter } from 'lucide-react';
-import products from '../Data/Product';
 import { Link } from 'react-router-dom';
 
 // Utility Components
-const PriceFormatter = ({ price }) => {
-  return <span>₦{price.toLocaleString()}</span>;
+const PriceFormatter = ({ price, currency = '₦' }) => {
+  return <span>{currency}{price.toLocaleString()}</span>;
 };
 
 const RatingStars = ({ rating }) => {
@@ -18,12 +17,12 @@ const RatingStars = ({ rating }) => {
           className={i < Math.floor(rating) ? "text-yellow-400 fill-current" : "text-gray-300"}
         />
       ))}
-    </div>
+     </div>
   );
 };
 
 // Main Components
-const ProductCard = ({ product, addToCart }) => {
+const ProductCard = ({ product, addToCart, currency }) => {
   return (
     <div className="bg-white rounded shadow overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative">
@@ -44,10 +43,10 @@ const ProductCard = ({ product, addToCart }) => {
       <div className="p-4 border-t">
         <Link to={`/product/${product.id}`} className="font-medium mb-1 line-clamp-2 h-12">{product.name}</Link>
         <div className="mb-1">
-          <span className="font-bold"><PriceFormatter price={product.discountPrice} /></span>
+          <span className="font-bold"><PriceFormatter price={product.discountPrice} currency={currency} /></span>
           {product.discount > 0 && (
             <span className="text-sm text-gray-500 line-through ml-2">
-              <PriceFormatter price={product.price} />
+              <PriceFormatter price={product.price} currency={currency} />
             </span>
           )}
         </div>
@@ -56,7 +55,7 @@ const ProductCard = ({ product, addToCart }) => {
           <span className="text-xs text-gray-500 ml-1">({product.reviews})</span>
         </div>
         <button 
-          onClick={addToCart}
+          onClick={() => addToCart(product)}
           className="bg-red-500 text-white w-full p-2 rounded hover:bg-red-600 flex items-center justify-center gap-2"
         >
           <ShoppingCart size={16} />
@@ -76,38 +75,11 @@ const FiltersSidebar = ({
   selectedBrands,
   setSelectedBrands,
   selectedRatings,
-  setSelectedRatings
+  setSelectedRatings,
+  availableBrands,
+  filterTitle,
+  currency
 }) => {
-  // Brands will now be dynamically determined based on the active category
-  const getBrandsForCategory = () => {
-    switch(activeCategory) {
-      case 'Appliances':
-        return ['LG', 'Samsung', 'Hisense', 'Haier Thermocool', 'Scanfrost'];
-      case 'Phones & Tablets':
-        return ['Apple', 'Samsung', 'Tecno', 'Infinix', 'Xiaomi', 'Oppo'];
-      case 'Health & Beauty':
-        return ['Dove', 'Nivea', 'L Oréal', 'Maybelline', 'Sunsilk'];
-      case 'Home & Office':
-        return ['IKEA', 'HP', 'Canon', 'Epson', 'Fellowes'];
-      case 'Electronics':
-        return ['Sony', 'Bose', 'JBL', 'Panasonic', 'Philips','Canon'];
-      case 'Fashion':
-        return ['Nike', 'Adidas', 'Gucci', 'Louis Vuitton', 'Zara'];
-      case 'Supermarket':
-        return ['Dangote', 'Honeywell', 'Nestle', 'Cadbury', 'Pepsi'];
-      case 'Computing':
-        return ['HP', 'Dell', 'Lenovo', 'Asus', 'Acer'];
-      case 'Baby Products':
-        return ['Pampers', 'Huggies', 'Johnson & Johnson', 'Chicco', 'Fisher-Price'];
-      case 'Gaming':
-        return ['Sony', 'Microsoft', 'Nintendo', 'Razer', 'Logitech'];
-      case 'Musical Instruments':
-        return ['Yamaha', 'Casio', 'Fender', 'Gibson', 'Roland'];
-      default:
-        return [];
-    }
-  };
-
   const handleBrandChange = (brand) => {
     setSelectedBrands(prev => 
       prev.includes(brand) 
@@ -131,24 +103,26 @@ const FiltersSidebar = ({
         Filters
       </h3>
       
-      <div className="mb-6">
-        <h4 className="font-medium mb-2">Categories</h4>
-        <ul className="space-y-1">
-          {categories.map((category) => (
-            <li key={category}>
-              <button 
-                className={`w-full text-left p-1 hover:text-red-500 ${activeCategory === category ? 'text-red-500 font-medium' : ''}`}
-                onClick={() => setActiveCategory(category)}
-              >
-                {category}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {categories.length > 1 && (
+        <div className="mb-6">
+          <h4 className="font-medium mb-2">Categories</h4>
+          <ul className="space-y-1">
+            {categories.map((category) => (
+              <li key={category}>
+                <button 
+                  className={`w-full text-left p-1 hover:text-red-500 ${activeCategory === category ? 'text-red-500 font-medium' : ''}`}
+                  onClick={() => setActiveCategory(category)}
+                >
+                  {category}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       
       <div className="mb-6">
-        <h4 className="font-medium mb-2">Price</h4>
+        <h4 className="font-medium mb-2">Price {currency && `(${currency})`}</h4>
         <div className="flex items-center gap-2">
           <input 
             type="number" 
@@ -169,21 +143,27 @@ const FiltersSidebar = ({
       </div>
       
       <div className="mb-6">
-        <h4 className="font-medium mb-2">Brands</h4>
-        <ul className="space-y-1">
-          {getBrandsForCategory().map((brand) => (
-            <li key={brand} className="flex items-center">
-              <input 
-                type="checkbox" 
-                id={brand} 
-                className="mr-2" 
-                checked={selectedBrands.includes(brand)}
-                onChange={() => handleBrandChange(brand)}
-              />
-              <label htmlFor={brand}>{brand}</label>
-            </li>
-          ))}
-        </ul>
+        <h4 className="font-medium mb-2">
+          {activeCategory === categories[0] ? 'Brands' : `${activeCategory} Brands`}
+        </h4>
+        {availableBrands.length > 0 ? (
+          <ul className="space-y-1">
+            {availableBrands.map((brand) => (
+              <li key={brand} className="flex items-center">
+                <input 
+                  type="checkbox" 
+                  id={brand} 
+                  className="mr-2" 
+                  checked={selectedBrands.includes(brand)}
+                  onChange={() => handleBrandChange(brand)}
+                />
+                <label htmlFor={brand}>{brand}</label>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-gray-500">No brands available for this category</p>
+        )}
       </div>
       
       <div className="mb-6">
@@ -222,7 +202,8 @@ const ProductGrid = ({
   setSortOption,
   currentPage,
   totalPages,
-  setCurrentPage
+  setCurrentPage,
+  currency
 }) => {
   const sortOptions = [
     { value: 'popularity', label: 'Popularity' },
@@ -261,7 +242,12 @@ const ProductGrid = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} addToCart={addToCart} />
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              addToCart={addToCart} 
+              currency={currency}
+            />
           ))
         ) : (
           <div className="col-span-full text-center py-10">
@@ -305,39 +291,50 @@ const ProductGrid = ({
   );
 };
 
-// Main Page Component
-export default function CategoryPage() {
+// Main Reusable Product Page Component
+export default function ProductCategoryPage({ 
+  pageTitle = "Products",
+  categoryData = {},
+  products = [],
+  defaultCategory = "All Products",
+  currency = "₦",
+  productsPerPage = 16
+}) {
   const [cartCount, setCartCount] = useState(0);
-  const [activeCategory, setActiveCategory] = useState('Appliances');
+  const [cartItems, setCartItems] = useState([]);
+  const [activeCategory, setActiveCategory] = useState(defaultCategory);
   const [priceRange, setPriceRange] = useState({ min: '', max: '' });
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedRatings, setSelectedRatings] = useState([]);
   const [sortOption, setSortOption] = useState('popularity');
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 16;
+  const [availableBrands, setAvailableBrands] = useState([]);
   
-  const categories = [
-    'Appliances',
-    'Phones & Tablets',
-    'Health & Beauty',
-    'Home & Office',
-    'Electronics',
-    'Fashion',
-    'Supermarket',
-    'Computing',
-    'Baby Products',
-    'Gaming',
-    'Musical Instruments'
-  ];
+  // Get categories from the data or use default
+  const categories = categoryData.categories || [defaultCategory];
   
-  const addToCart = () => {
-    setCartCount(cartCount + 1);
+  // Update brands when category changes
+  useEffect(() => {
+    if (categoryData.brandsByCategory && categoryData.brandsByCategory[activeCategory]) {
+      setAvailableBrands(categoryData.brandsByCategory[activeCategory]);
+    } else {
+      // Collect all unique brands from products if no specific brands are defined
+      const uniqueBrands = [...new Set(products.map(product => product.brand).filter(Boolean))];
+      setAvailableBrands(uniqueBrands);
+    }
+    // Clear selected brands when changing category
+    setSelectedBrands([]);
+  }, [activeCategory, categoryData, products]);
+  
+  const addToCart = (product) => {
+    setCartItems(prev => [...prev, product]);
+    setCartCount(prev => prev + 1);
   };
 
   // Filter and sort products
   const filteredProducts = products.filter(product => {
     // Category filter
-    if (product.category !== activeCategory) {
+    if (activeCategory !== defaultCategory && product.category !== activeCategory) {
       return false;
     }
     
@@ -389,6 +386,12 @@ export default function CategoryPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
+      <div className="bg-white shadow-sm mb-4">
+        <div className="container mx-auto py-4 px-2">
+          <h1 className="text-2xl font-bold">{pageTitle}</h1>
+        </div>
+      </div>
+      
       {/* Main content */}
       <main className="container mx-auto p-2 flex-1">
         <div className="flex flex-col md:flex-row gap-6">
@@ -402,6 +405,9 @@ export default function CategoryPage() {
             setSelectedBrands={setSelectedBrands}
             selectedRatings={selectedRatings}
             setSelectedRatings={setSelectedRatings}
+            availableBrands={availableBrands}
+            filterTitle={pageTitle}
+            currency={currency}
           />
           
           <ProductGrid 
@@ -412,9 +418,198 @@ export default function CategoryPage() {
             currentPage={currentPage}
             totalPages={totalPages}
             setCurrentPage={setCurrentPage}
+            currency={currency}
           />
         </div>
       </main>
     </div>
   );
 }
+
+// Example of how to use this component for different product categories
+export const AppliancesPage = () => {
+  // Define appliance-specific data
+  const appliancesData = {
+    categories: [
+      'All Appliances', 'Kitchen Appliances', 'Refrigerators', 
+      'Washing Machines', 'Air Conditioners', 'Microwaves',
+      'Blenders & Juicers', 'Electric Kettles', 'Water Dispensers'
+    ],
+    brandsByCategory: {
+      'All Appliances': [
+        'LG', 'Samsung', 'Hisense', 'Nexus', 'Scanfrost', 
+        'Haier Thermocool', 'Midea', 'Binatone', 'Maxi'
+      ],
+      'Kitchen Appliances': [
+        'Scanfrost', 'Binatone', 'Maxi', 'Nexus', 'Haier Thermocool'
+      ],
+      'Refrigerators': [
+        'LG', 'Samsung', 'Hisense', 'Haier Thermocool', 'Midea'
+      ],
+      'Washing Machines': [
+        'LG', 'Samsung', 'Hisense', 'Nexus', 'Haier Thermocool'
+      ],
+      'Air Conditioners': [
+        'LG', 'Samsung', 'Hisense', 'Midea', 'Haier Thermocool'
+      ],
+      'Microwaves': [
+        'LG', 'Samsung', 'Nexus', 'Scanfrost', 'Midea'
+      ],
+      'Blenders & Juicers': [
+        'Binatone', 'Maxi', 'Nexus', 'Scanfrost'
+      ],
+      'Electric Kettles': [
+        'Binatone', 'Maxi', 'Scanfrost', 'Haier Thermocool'
+      ],
+      'Water Dispensers': [
+        'Nexus', 'Scanfrost', 'Midea', 'Haier Thermocool'
+      ]
+    }
+  };
+  
+  // Import products from your data source or API
+  const applianceProducts = []; // This would be your actual products
+
+  return (
+    <ProductCategoryPage
+      pageTitle="Appliances"
+      categoryData={appliancesData}
+      products={applianceProducts}
+      defaultCategory="All Appliances"
+      currency="₦"
+    />
+  );
+};
+
+export const PhonesAndTabletsPage = () => {
+  const phonesData = {
+    categories: [
+      'All Phones & Tablets', 'Smartphones', 'Basic Phones', 
+      'Tablets', 'Smartwatches', 'Accessories'
+    ],
+    brandsByCategory: {
+      'All Phones & Tablets': [
+        'Apple', 'Samsung', 'Xiaomi', 'Infinix', 'Tecno', 
+        'Nokia', 'Huawei', 'Oppo', 'Vivo'
+      ],
+      'Smartphones': [
+        'Apple', 'Samsung', 'Xiaomi', 'Infinix', 'Tecno', 'Huawei', 'Oppo', 'Vivo'
+      ],
+      'Basic Phones': [
+        'Nokia', 'Tecno', 'Itel'
+      ],
+      'Tablets': [
+        'Apple', 'Samsung', 'Huawei', 'Lenovo', 'Microsoft'
+      ],
+      'Smartwatches': [
+        'Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Fitbit'
+      ],
+      'Accessories': [
+        'Apple', 'Samsung', 'Anker', 'Baseus', 'Oraimo'
+      ]
+    }
+  };
+  
+  const phoneProducts = []; // This would be your actual products
+  
+  return (
+    <ProductCategoryPage
+      pageTitle="Phones & Tablets"
+      categoryData={phonesData}
+      products={phoneProducts}
+      defaultCategory="All Phones & Tablets"
+      currency="₦"
+    />
+  );
+};
+
+export const HealthAndBeautyPage = () => {
+  const healthData = {
+    categories: [
+      'All Health & Beauty', 'Skincare', 'Makeup', 'Hair Care', 
+      'Fragrances', 'Personal Care', 'Health Care'
+    ],
+    brandsByCategory: {
+      'All Health & Beauty': [
+        'Nivea', 'L\'Oreal', 'Maybelline', 'Garnier', 'Dove', 
+        'Neutrogena', 'Olay', 'The Ordinary', 'Cerave'
+      ],
+      'Skincare': [
+        'Nivea', 'Neutrogena', 'The Ordinary', 'Cerave', 'La Roche-Posay'
+      ],
+      'Makeup': [
+        'L\'Oreal', 'Maybelline', 'MAC', 'Fenty Beauty', 'NYX'
+      ],
+      'Hair Care': [
+        'Dove', 'Pantene', 'TRESemmé', 'Garnier', 'Cantu'
+      ],
+      'Fragrances': [
+        'Versace', 'Dior', 'Chanel', 'Gucci', 'Victoria\'s Secret'
+      ],
+      'Personal Care': [
+        'Dove', 'Nivea', 'Gillette', 'Oral-B', 'Colgate'
+      ],
+      'Health Care': [
+        'Omron', 'Centrum', 'Ensure', 'Nature\'s Bounty', 'Advil'
+      ]
+    }
+  };
+  
+  const healthProducts = []; // This would be your actual products
+  
+  return (
+    <ProductCategoryPage
+      pageTitle="Health & Beauty"
+      categoryData={healthData}
+      products={healthProducts}
+      defaultCategory="All Health & Beauty"
+      currency="₦"
+    />
+  );
+};
+
+// Similarly, you can create specialized components for each product category
+export const HomeAndOfficePage = () => {
+  // Define with appropriate categories and brands
+  return <ProductCategoryPage pageTitle="Home & Office" />;
+};
+
+export const ElectronicsPage = () => {
+  // Define with appropriate categories and brands
+  return <ProductCategoryPage pageTitle="Electronics" />;
+};
+
+export const FashionPage = () => {
+  // Define with appropriate categories and brands
+  return <ProductCategoryPage pageTitle="Fashion" />;
+};
+
+export const SupermarketPage = () => {
+  // Define with appropriate categories and brands
+  return <ProductCategoryPage pageTitle="Supermarket" />;
+};
+
+export const ComputingPage = () => {
+  // Define with appropriate categories and brands
+  return <ProductCategoryPage pageTitle="Computing" />;
+};
+
+export const BabyProductsPage = () => {
+  // Define with appropriate categories and brands
+  return <ProductCategoryPage pageTitle="Baby Products" />;
+};
+
+export const GamingPage = () => {
+  // Define with appropriate categories and brands
+  return <ProductCategoryPage pageTitle="Gaming" />;
+};
+
+export const MusicalInstrumentsPage = () => {
+  // Define with appropriate categories and brands
+  return <ProductCategoryPage pageTitle="Musical Instruments" />;
+};
+
+export const OtherCategoriesPage = () => {
+  // Define with appropriate categories and brands
+  return <ProductCategoryPage pageTitle="Other Categories" />;
+};

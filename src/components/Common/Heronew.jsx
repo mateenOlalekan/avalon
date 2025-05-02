@@ -1,44 +1,43 @@
 import { useState } from 'react';
-import {Link} from "react-router-dom";
-
-import { 
+import { Link } from "react-router-dom";
+import {
   ShoppingBag,
-  Smartphone, 
-  Sparkles, 
-  Home, 
-  Tv, 
-  Shirt, 
-  ShoppingCart, 
-  Monitor, 
-  Baby, 
-  Gamepad, 
-  Music, 
-  MoreHorizontal 
+  Smartphone,
+  Sparkles,
+  Home,
+  Tv,
+  Shirt,
+  ShoppingCart,
+  Monitor,
+  Baby,
+  Gamepad,
+  Music,
+  MoreHorizontal
 } from 'lucide-react';
 
 // Sidebar Component
 const CategorySidebar = () => {
   const [activeCategory, setActiveCategory] = useState(null);
-
+  
   const categories = [
-    { icon: ShoppingBag, name: "Appliances", id: "appliances",page:"/appliance" },
-    { icon: Smartphone, name: "Phones & Tablets", id: "phones",page:"/phone&tablet" },
-    { icon: Sparkles, name: "Health & Beauty", id: "health",page:"/health" },
-    { icon: Home, name: "Home & Office", id: "home",page:"/Home"},
-    { icon: Tv, name: "Electronics", id: "electronics",page:"/eletronic" },
-    { icon: Shirt, name: "Fashion", id: "fashion",page:"/fashion" },
-    { icon: ShoppingCart, name: "Supermarket", id: "supermarket",page:"" },
-    { icon: Monitor, name: "Computing", id: "computing" },
-    { icon: Baby, name: "Baby Products", id: "baby" },
-    { icon: Gamepad, name: "Gaming", id: "gaming" },
-    { icon: Music, name: "Musical Instruments", id: "music" },
-    // { icon: MoreHorizontal, name: "Other categories", id: "other" }
+    { icon: ShoppingBag, name: "Appliances", id: "appliances", path: "/category/appliances" },
+    { icon: Smartphone, name: "Phones & Tablets", id: "phones-tablets", path: "/category/phones-tablets" },
+    { icon: Sparkles, name: "Health & Beauty", id: "health-beauty", path: "/health-beauty" },
+    { icon: Home, name: "Home & Office", id: "home-office", path: "/home-office" },
+    { icon: Tv, name: "Electronics", id: "electronics", path: "/electronics" },
+    { icon: Shirt, name: "Fashion", id: "fashion", path: "/fashion" },
+    { icon: ShoppingCart, name: "Supermarket", id: "supermarket", path: "/supermarket" },
+    { icon: Monitor, name: "Computing", id: "computing", path: "/computing" },
+    { icon: Baby, name: "Baby Products", id: "baby", path: "/baby-products" },
+    { icon: Gamepad, name: "Gaming", id: "gaming", path: "/gaming" },
+    { icon: Music, name: "Musical Instruments", id: "music", path: "/musical-instruments" },
+    { icon: MoreHorizontal, name: "Other categories", id: "other", path: "/other-categories" }
   ];
-
+  
   const handleCategoryClick = (categoryId) => {
     setActiveCategory(prevCategory => prevCategory === categoryId ? null : categoryId);
   };
-
+  
   return (
     <div className="w-full h-[450px] lg:w-2/12 lg:block hidden bg-white p-4 border-r border-gray-200 shadow-sm">
       <div className="flex flex-col gap-1">
@@ -48,18 +47,22 @@ const CategorySidebar = () => {
           const isActive = activeCategory === category.id;
           
           return (
-            <div 
-              key={index} 
-              className={`flex items-center gap-1 w-full py-1 px-3 cursor-pointer rounded-md transition-colors ${
-                isActive ? 'bg-red-100 text-red-600' : 'hover:bg-gray-100'
-              }`}
-              onClick={() => handleCategoryClick(category.id)}
+            <Link 
+              to={category.path}
+              key={index}
             >
-              <Icon className={isActive ? "text-red-600" : "text-gray-600"} size={20} />
-              <span className={`text-sm ${isActive ? "text-red-600 font-medium" : "text-gray-700"}`}>
-                {category.name}
-              </span>
-            </div>
+              <div
+                className={`flex items-center gap-1 w-full py-1 px-3 cursor-pointer rounded-md transition-colors ${
+                  isActive ? 'bg-red-100 text-red-600' : 'hover:bg-gray-100'
+                }`}
+                onClick={() => handleCategoryClick(category.id)}
+              >
+                <Icon className={isActive ? "text-red-600" : "text-gray-600"} size={20} />
+                <span className={`text-sm ${isActive ? "text-red-600 font-medium" : "text-gray-700"}`}>
+                  {category.name}
+                </span>
+              </div>
+            </Link>
           );
         })}
       </div>
@@ -67,5 +70,9 @@ const CategorySidebar = () => {
   );
 };
 
-
 export default CategorySidebar;
+
+const brands = [
+  'LG', 'Samsung', 'Hisense', 'Nexus', 'Scanfrost', 
+  'Haier Thermocool', 'Midea', 'Binatone', 'Maxi'
+];
