@@ -30,16 +30,16 @@ import OtherCategoriesPage from './pages/categories/OtherCategoriesPage';
 import ComputingPage from './pages/categories/ComputingPage';
 
 // Dashboard Pages
-import Dashboard from './pages/dashboard/Dashboard';
-import AnalyticsPage from './pages/dashboard/AnalyticsPage';
-import ProductsPage from './pages/dashboard/ProductsPage';
-import OrdersPage from './pages/dashboard/OrdersPage';
-import CustomersPage from './pages/dashboard/CustomersPage';
-import SettingsPage from './pages/dashboard/SettingsPage';
-import ChatsPage from './pages/dashboard/ChatsPage';
-import CouponsPage from './pages/dashboard/CouponsPage';
-import IntegrationsPage from './pages/dashboard/IntegrationsPage';
-import LogoutPage from './Pages/LogOut';
+import Dashboard from './pages/dashboard/dashboard';
+import AnalyticsPage from './pages/dashboard/analyticsPage';
+import ProductsPage from './pages/dashboard/productsPage';
+import OrdersPage from './pages/dashboard/ordersPage';
+import CustomersPage from './pages/dashboard/customersPage';
+import SettingsPage from './pages/dashboard/settingsPage';
+import ChatsPage from './pages/dashboard/chatsPage';
+import CouponsPage from './pages/dashboard/couponsPage';
+import IntegrationsPage from './pages/dashboard/integrationsPage';
+import LogoutPage from './Pages/logOut';
 
 function App() {
   const location = useLocation();
