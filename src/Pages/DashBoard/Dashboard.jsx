@@ -1,8 +1,8 @@
 import React from 'react';
-import StatCard from '../DashBoard/DashBoardCommon/StatCard';
-import RevenueChart from '../DashBoard/DashBoardCommon/RevenueChart';
-import TrafficSourceChart from '../DashBoard/DashBoardCommon/TrafficSourceChart';
-import RecentOrders from '../DashBoard/DashBoardCommon/RecentOrders';
+import StatCard from './DashBoardCommon/StatCard';
+import RevenueChart from './DashBoardCommon/RevenueChart';
+import TrafficSourceChart from './DashBoardCommon/TrafficSourceChart';
+import RecentOrders from './DashBoardCommon/RecentOrders';
 
 function Dashboard() {
   const recentOrders = [

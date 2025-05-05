@@ -1,4 +1,4 @@
-import ProductCategoryPage from '../ProductCategoryPage';
+import ProductCategoryPage from '../productCategoryPage';
 import { applianceProducts } from '../../components/Data/Product'; // You would import your actual data here
 
 export default function AppliancesPage() {

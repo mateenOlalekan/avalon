@@ -5,12 +5,12 @@ import Top from './components/Common/Topbar';
 import DashLayout from './components/DashLayout/DashLayout';
 
 // Public Pages
-import Home from './pages/homepage';
-import Cart from './pages/Cart';
-import WishList from './pages/WishList';
-import OrderHistory from './pages/OrderHistory';
-import Orderdetails from './pages/Orderdetails';
-import NotFound from './pages/NoFound';
+import Home from './Pages/homepage';
+import Cart from './Pages/cart';
+import WishList from './Pages/wishList';
+import OrderHistory from './Pages/orderHistory';
+import Orderdetails from './Pages/orderDetails';
+import NotFound from './Pages/noFound';
 
 // Authentication Pages
 import Signin from '../src/Auth/Signin';
@@ -30,15 +30,15 @@ import OtherCategoriesPage from './pages/categories/OtherCategoriesPage';
 import ComputingPage from './pages/categories/ComputingPage';
 
 // Dashboard Pages
-import Dashboard from './pages/dashboard/dashboard';
-import AnalyticsPage from './pages/dashboard/analyticsPage';
-import ProductsPage from './pages/dashboard/productsPage';
-import OrdersPage from './pages/dashboard/ordersPage';
-import CustomersPage from './pages/dashboard/customersPage';
-import SettingsPage from './pages/dashboard/settingsPage';
-import ChatsPage from './pages/dashboard/chatsPage';
-import CouponsPage from './pages/dashboard/couponsPage';
-import IntegrationsPage from './pages/dashboard/integrationsPage';
+import Dashboard from './Pages/DashBoard/dashboard';
+import AnalyticsPage from './Pages/DashBoard/analyticsPage';
+import ProductsPage from './Pages/DashBoard/productsPage';
+import OrdersPage from './Pages/DashBoard/ordersPage';
+import CustomersPage from './Pages/DashBoard/customersPage';
+import SettingsPage from './Pages/DashBoard/settingsPage';
+import ChatsPage from './Pages/DashBoard/chatsPage';
+import CouponsPage from './Pages/DashBoard/couponsPage';
+import IntegrationsPage from './Pages/DashBoard/integrationsPage';
 import LogoutPage from './Pages/logOut';
 
 function App() {

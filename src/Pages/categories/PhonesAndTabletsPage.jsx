@@ -1,4 +1,4 @@
-import ProductCategoryPage from '../ProductCategoryPage';
+import ProductCategoryPage from '../productCategoryPage';
 import { phoneProducts } from '../../components/Data/Product'; // You would import your actual data here
 
 export default function PhonesAndTabletsPage() {
