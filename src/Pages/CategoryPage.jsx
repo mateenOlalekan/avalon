@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import ProductCategoryPage from '../components/Products/ProductCategoryPage';
-import { appliancesData, phonesData, healthData } from '../data/categoryData';
+import { appliancesData, phonesData, healthData,} from '../data/categoryData';
+
 import products from '../data/products';
 
 const CategoryPage = () => {
@@ -14,8 +15,11 @@ const CategoryPage = () => {
       case 'electronics': return { data: appliancesData, products: products.filter(p => p.category === 'Electronics') };
       case 'fashion': return { data: appliancesData, products: products.filter(p => p.category === 'Fashion') };
       case 'baby-products': return { data: appliancesData, products: products.filter(p => p.category === 'Baby Products') };
-      default: return { data: appliancesData, products: products.filter(p => p.category === 'All Products') };
-      
+      case 'computing': return { data: appliancesData, products: products.filter(p => p.category === 'Computing') };
+      case 'supermarket': return { data: appliancesData, products: products.filter(p => p.category === 'Supermarket') };
+      case 'gaming': return { data: appliancesData, products: products.filter(p => p.category === 'Gaming') };
+      case 'musical-instruments': return { data: appliancesData, products: products.filter(p => p.category === 'Musical Instruments') };
+      case 'other-categories': return { data: appliancesData, products: products.filter(p => p.category === 'Other Categories') };     
       default: return { data: null, products: [] };
     }
   };

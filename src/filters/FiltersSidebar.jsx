@@ -31,7 +31,7 @@ const FiltersSidebar = ({
   };
 
   return (
-    <aside className="w-full md:w-64 bg-white p-4 rounded shadow">
+    <aside className="w-full  md:w-64 bg-white p-4 h-fit rounded shadow">
       <h3 className="font-bold text-lg mb-4 flex items-center">
         <Filter size={18} className="mr-2" />
         Filters

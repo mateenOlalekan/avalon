@@ -16,8 +16,8 @@ function Homepage() {
       <Category/>
 
         <DealsSection />
-        {/* <BrandsSection/> */}
-        {/* <Footer /> */}
+        <BrandsSection/>
+        <Footer />
     </div>
     </>
   );

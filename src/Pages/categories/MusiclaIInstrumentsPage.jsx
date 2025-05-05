@@ -42,8 +42,9 @@ export default function GamingPage() {
   return (
     <ProductCategoryPage 
       pageTitle="Gaming"
-      categories={gamingData.categories}
-      brandsByCategory={gamingData.brandsByCategory}
+      categoryData={gamingData}
+      defaultCategory='All Gaming'
+      currency="₦"
       products={gamingProducts}
     />
   );

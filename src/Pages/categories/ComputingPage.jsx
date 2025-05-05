@@ -42,9 +42,10 @@ export default function ComputingPage() {
   return (
     <ProductCategoryPage 
       pageTitle="Computing"
-      categories={computingData.categories}
-      brandsByCategory={computingData.brandsByCategory}
+      categoryData={computingData}
       products={computingProducts}
+      defaultCategory='Computer Eletronics'
+      currency="₦"
     />
   );
 }

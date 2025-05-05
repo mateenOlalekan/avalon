@@ -42,9 +42,10 @@ export default function OtherCategoriesPage() {
   return (
     <ProductCategoryPage 
       pageTitle="Other Categories"
-      categories={otherCategoriesData.categories}
-      brandsByCategory={otherCategoriesData.brandsByCategory}
+      categoryData={otherCategoriesData}
       products={otherCategoryProducts}
+      defaultCategory='All Other Categories'
+      currency="₦"
     />
   );
 }

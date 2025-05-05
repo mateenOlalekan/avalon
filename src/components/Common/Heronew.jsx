@@ -22,16 +22,16 @@ const CategorySidebar = () => {
   const categories = [
     { icon: ShoppingBag, name: "Appliances", id: "appliances", path: "/category/appliances" },
     { icon: Smartphone, name: "Phones & Tablets", id: "phones-tablets", path: "/category/phones-tablets" },
-    { icon: Sparkles, name: "Health & Beauty", id: "health-beauty", path: "/health-beauty" },
-    { icon: Home, name: "Home & Office", id: "home-office", path: "/home-office" },
-    { icon: Tv, name: "Electronics", id: "electronics", path: "/electronics" },
-    { icon: Shirt, name: "Fashion", id: "fashion", path: "/fashion" },
-    { icon: ShoppingCart, name: "Supermarket", id: "supermarket", path: "/supermarket" },
-    { icon: Monitor, name: "Computing", id: "computing", path: "/computing" },
-    { icon: Baby, name: "Baby Products", id: "baby", path: "/baby-products" },
-    { icon: Gamepad, name: "Gaming", id: "gaming", path: "/gaming" },
-    { icon: Music, name: "Musical Instruments", id: "music", path: "/musical-instruments" },
-    { icon: MoreHorizontal, name: "Other categories", id: "other", path: "/other-categories" }
+    { icon: Sparkles, name: "Health & Beauty", id: "health-beauty", path: "/category/health-beauty" },
+    { icon: Home, name: "Home & Office", id: "home-office", path: "/category/home-office" },
+    { icon: Tv, name: "Electronics", id: "electronics", path: "/category/electronics" },
+    { icon: Shirt, name: "Fashion", id: "fashion", path: "/category/fashion" },
+    { icon: ShoppingCart, name: "Supermarket", id: "supermarket", path: "/category/supermarket" },
+    { icon: Monitor, name: "Computing", id: "computing", path: "/category/computing" },
+    { icon: Baby, name: "Baby Products", id: "baby", path: "/category/baby-products" },
+    { icon: Gamepad, name: "Gaming", id: "gaming", path: "/category/gaming" },
+    { icon: Music, name: "Musical Instruments", id: "music", path: "/category/musical-instruments" },
+    { icon: MoreHorizontal, name: "Other categories", id: "other", path: "/category/other-categories" }
   ];
   
   const handleCategoryClick = (categoryId) => {

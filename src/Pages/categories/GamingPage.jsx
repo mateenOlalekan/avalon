@@ -42,9 +42,11 @@ export default function GamingPage() {
   return (
     <ProductCategoryPage 
       pageTitle="Gaming"
-      categories={gamingData.categories}
-      brandsByCategory={gamingData.brandsByCategory}
+      categoryData={gamingData}
+      brandsByCategory={gamingData}
       products={gamingProducts}
+      defaultCategory='Game Eden'
+      currency="₦"
     />
   );
 }

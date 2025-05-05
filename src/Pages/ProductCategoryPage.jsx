@@ -97,13 +97,13 @@ export default function ProductCategoryPage({
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <div className="bg-white shadow-sm mb-4">
-        <div className="container mx-auto py-4 px-2">
+        <div className="max-w-7xl mx-auto py-4">
           <h1 className="text-2xl font-bold">{pageTitle}</h1>
         </div>
       </div>
       
       {/* Main content */}
-      <main className="container mx-auto p-2 flex-1">
+      <main className="max-w-7xl mx-auto  flex-1">
         <div className="flex flex-col md:flex-row gap-6">
           <FiltersSidebar 
             categories={categories}

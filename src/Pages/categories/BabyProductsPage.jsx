@@ -42,9 +42,10 @@ export default function BabyProductsPage() {
   return (
     <ProductCategoryPage 
       pageTitle="Baby Products"
-      categories={babyProductsData.categories}
-      brandsByCategory={babyProductsData.brandsByCategory}
+      categoryData={babyProductsData}
       products={babyProducts}
+      defaultCategory='All Baby Products'
+      currency='₦'
     />
   );
 }

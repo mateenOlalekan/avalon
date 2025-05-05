@@ -42,9 +42,12 @@ export default function SupermarketPage() {
   return (
     <ProductCategoryPage 
       pageTitle="Supermarket"
-      categories={supermarketData.categories}
-      brandsByCategory={supermarketData.brandsByCategory}
+      categoryData={supermarketData}
+      brandsByCategory={supermarketProducts}
       products={supermarketProducts}
+      defaultCategory="All Supermarket"
+      currency="₦"
+  
     />
   );
 }

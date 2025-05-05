@@ -42,8 +42,9 @@ export default function HomeAndOfficePage() {
   return (
     <ProductCategoryPage 
       pageTitle="Home & Office"
-      categories={homeOfficeData.categories}
-      brandsByCategory={homeOfficeData.brandsByCategory}
+      categoryData={homeOfficeData}
+      defaultCategory='All Home & Office'
+      currency="₦"
       products={homeOfficeProducts}
     />
   );

@@ -9,7 +9,7 @@ export default function HealthAndBeautyPage() {
     ],
     brandsByCategory: {
       'All Health & Beauty': [
-        'Nivea', 'Neutrogena', 'L\'Oreal', 'Maybelline', 'Dove', 
+        'Nivea', 'Neutrogena', 'LOreal', 'Maybelline', 'Dove', 
         'Garnier', 'Revlon', 'Johnson & Johnson', 'Olay'
       ],
       'Skincare': [
@@ -17,15 +17,15 @@ export default function HealthAndBeautyPage() {
         'Clinique', 'Olay', 'Bioderma', 'Nivea'
       ],
       'Hair Care': [
-        'Pantene', 'TRESemmé', 'Head & Shoulders', 'L\'Oreal', 'Dove',
+        'Pantene', 'TRESemmé', 'Head & Shoulders', 'LOreal', 'Dove',
         'Garnier', 'Shea Moisture', 'Cantu', 'OGX'
       ],
       'Makeup': [
-        'Maybelline', 'L\'Oreal', 'MAC', 'Revlon', 'NYX',
+        'Maybelline', 'L Oreal', 'MAC', 'Revlon', 'NYX',
         'Fenty Beauty', 'e.l.f.', 'Covergirl', 'Rimmel'
       ],
       'Fragrances': [
-        'Chanel', 'Dior', 'Versace', 'Calvin Klein', 'Victoria\'s Secret',
+        'Chanel', 'Dior', 'Versace', 'Calvin Klein', 'Victorias Secret',
         'Dolce & Gabbana', 'Hugo Boss', 'Gucci', 'Tom Ford'
       ],
       'Personal Care': [
@@ -33,7 +33,7 @@ export default function HealthAndBeautyPage() {
         'Nivea', 'Vaseline', 'Dial', 'Degree'
       ],
       'Health Products': [
-        'Centrum', 'Nature\'s Way', 'GNC', 'One-A-Day', 'Ensure',
+        'Centrum', 'Natures Way', 'GNC', 'One-A-Day', 'Ensure',
         'Advil', 'Tylenol', 'Band-Aid', 'CVS Health'
       ]
     }
@@ -42,9 +42,10 @@ export default function HealthAndBeautyPage() {
   return (
     <ProductCategoryPage 
       pageTitle="Health & Beauty"
-      categories={healthBeautyData.categories}
-      brandsByCategory={healthBeautyData.brandsByCategory}
+      categoryData={healthBeautyData}
       products={healthBeautyProducts}
+      defaultCategory='Health and Beauty'
+      currency="₦"
     />
   );
 }

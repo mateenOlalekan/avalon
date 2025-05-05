@@ -38,8 +38,9 @@ export default function ElectronicsPage() {
   return (
     <ProductCategoryPage 
       pageTitle="Electronics"
-      categories={electronicsData.categories}
-      brandsByCategory={electronicsData.brandsByCategory}
+      categoryData={electronicsData}
+      defaultCategory='All Electronics'
+      currency="₦"
       products={electronicsProducts}
     />
   );

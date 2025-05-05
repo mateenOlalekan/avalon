@@ -42,8 +42,9 @@ export default function FashionPage() {
   return (
     <ProductCategoryPage 
       pageTitle="Fashion"
-      categories={fashionData.categories}
-      brandsByCategory={fashionData.brandsByCategory}
+      categoryData={fashionData}
+      defaultCategory="All Fashion"
+      currency="₦"
       products={fashionProducts}
     />
   );
