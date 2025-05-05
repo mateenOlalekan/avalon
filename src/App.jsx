@@ -5,7 +5,7 @@ import Top from './components/Common/Topbar';
 import DashLayout from './components/DashLayout/DashLayout';
 
 // Public Pages
-import Home from './pages/Homepage';
+import Home from './pages/homepage';
 import Cart from './pages/Cart';
 import WishList from './pages/WishList';
 import OrderHistory from './pages/OrderHistory';
