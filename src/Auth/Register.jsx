@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Eye, EyeOff, Mail, Lock, User, ShoppingBag, ArrowRight } from "lucide-react";
-import { auth } from "./Firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doCreateUserWithEmailAndPassword, doSignInWithGoogle } from "../Context/auth";
+import { useAuth } from "../Context/AuthContext";
 
-const SignupPage = () => {
+const Register = () => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -18,7 +18,6 @@ const SignupPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
-  // Email validation function
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleChange = (e) => {
@@ -31,7 +30,7 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     setError(null);
     setSuccess(false);
 
@@ -64,15 +63,51 @@ const SignupPage = () => {
     setLoading(true);
 
     try {
-      await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      // Create user with email and password
+      await doCreateUserWithEmailAndPassword(
+        formData.email,
+        formData.password,
+        formData.fullName
+      );
+
+      // If successful
       setSuccess(true);
-      setMessage("Account created successfully! Redirecting to login...");
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 2000);
-    } catch (err) {
-      console.error("Error creating account:", err);
-      setError("Failed to create account. Please try again.");
+      setMessage("Account created successfully! Redirecting you to your dashboard...");
+      
+      // You might want to redirect the user here or handle the successful registration
+      // For example:
+      // navigate('/dashboard');
+      
+    } catch (error) {
+      // Handle different error cases
+      let errorMessage = "Registration failed. Please try again.";
+      
+      if (error.code === 'auth/email-already-in-use') {
+        errorMessage = "This email is already in use. Please use a different email or sign in.";
+      } else if (error.code === 'auth/weak-password') {
+        errorMessage = "Password is too weak. Please choose a stronger password.";
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessage = "The email address is invalid. Please enter a valid email.";
+      }
+      
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    try {
+      await doSignInWithGoogle();
+      // If successful, you might want to redirect or handle the success
+      setSuccess(true);
+      setMessage("Signed in with Google successfully! Redirecting...");
+    } catch (error) {
+      setError("Failed to sign in with Google. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -95,13 +130,13 @@ const SignupPage = () => {
           </div>
           
           {/* Content */}
-          <div className="relative z-10 p-12 flex flex-col justify-between h-full">
+          <div className="relative z-10 p-8 flex flex-col justify-between h-full">
             <div className="flex items-center space-x-2">
               <ShoppingBag className="h-8 w-8 text-white" />
               <span className="text-2xl font-bold text-white">ShopEase</span>
             </div>
             
-            <div className="space-y-6">
+            <div className="space-y-4">
               <h2 className="text-4xl font-bold text-white">Create Your Account</h2>
               <p className="text-red-100 text-lg">
                 Sign up to start your personalized shopping experience, create wishlists, and track your orders.
@@ -124,7 +159,7 @@ const SignupPage = () => {
         <div className="w-full md:w-1/2 p-8 md:p-12 flex items-center justify-center">
           <div className="w-full max-w-md">
             {/* Mobile Branding */}
-            <div className="md:hidden flex items-center justify-center mb-8">
+            <div className="md:hidden flex items-center justify-center mb-2">
               <div className="flex items-center space-x-2">
                 <ShoppingBag className="h-8 w-8 text-red-600" />
                 <span className="text-2xl font-bold text-gray-800">ShopEase</span>
@@ -132,9 +167,9 @@ const SignupPage = () => {
             </div>
             
             {/* Form Header */}
-            <div className="text-center md:text-left mb-8">
+            <div className="text-center md:text-left mb-4">
               <h2 className="text-3xl font-bold text-gray-800">Create your account</h2>
-              <p className="text-gray-500 mt-3 text-lg">
+              <p className="text-gray-500 mt-2 text-lg">
                 Get access to exclusive features and personalized shopping
               </p>
             </div>
@@ -154,8 +189,8 @@ const SignupPage = () => {
             )}
             
             {/* Sign Up Form */}
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="space-y-5">
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <div className="space-y-3">
                 {/* Full Name Field */}
                 <div>
                   <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
@@ -173,7 +208,7 @@ const SignupPage = () => {
                       required
                       value={formData.fullName}
                       onChange={handleChange}
-                      className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-base"
+                      className="block w-full pl-10 pr-1 py-1 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-base"
                       placeholder="John Doe"
                     />
                   </div>
@@ -196,7 +231,7 @@ const SignupPage = () => {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-base"
+                      className="block w-full pl-10 pr-1 py-1 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-base"
                       placeholder="you@example.com"
                     />
                   </div>
@@ -300,7 +335,7 @@ const SignupPage = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white ${
+                  className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white ${
                     loading ? "bg-red-400 cursor-not-allowed" : "bg-red-600 hover:bg-red-700"
                   } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200`}
                 >
@@ -320,7 +355,7 @@ const SignupPage = () => {
             </form>
             
             {/* Social Login */}
-            <div className="mt-8">
+            <div className="mt-4">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-300" />
@@ -332,10 +367,11 @@ const SignupPage = () => {
                 </div>
               </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-4">
+              <div className="mt-4 grid grid-cols-2 gap-4">
                 <div>
                   <a
                     href="#"
+                    onClick={handleGoogleSignIn}
                     className="w-full inline-flex justify-center items-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-gray-700 hover:bg-gray-50 transition-colors duration-200 text-base font-medium"
                   >
                     <svg className="h-6 w-6 text-red-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -360,7 +396,7 @@ const SignupPage = () => {
             </div>
             
             {/* Mobile Sign In Link */}
-            <div className="mt-8 text-center md:hidden">
+            <div className="mt-4 text-center md:hidden">
               <p className="text-gray-600 text-lg">
                 Already have an account?{" "}
                 <a 
@@ -378,4 +414,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
+export default Register;

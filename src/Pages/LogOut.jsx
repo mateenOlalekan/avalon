@@ -25,7 +25,7 @@ const LogoutPage = () => {
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="flex flex-col items-center">
           <div className="p-3 bg-red-100 rounded-full">
-            <LogOut className="w-8 h-8 text-red-600" />
+            <LogOut className="w-8 h-8 text-green-600" />
           </div>
           <h1 className="mt-4 text-xl font-bold">Logging Out</h1>
           <p className="mt-2 text-center text-gray-500">

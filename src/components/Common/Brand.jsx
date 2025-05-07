@@ -42,25 +42,25 @@ const brands = [
 ];
 
 export default function BrandStore() {
-  const featuredBrands = brands.slice(0, 18);
+  const featugreenBrands = brands.slice(0, 18);
   const trendingBrands = brands.slice(6);
 
   return (
     <section className="bg-gradient-to-b from-gray-50 to-white py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
 
-        {/* Featured Brands */}
+        {/* Featugreen Brands */}
         <div className="mb-16">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-xl font-semibold text-gray-900">Featured Brands</h3>
-            <Link to="/brands" className="flex items-center text-red-500 hover:text-red-600  font-medium group">
+            <h3 className="text-xl font-semibold text-gray-900">Featugreen Brands</h3>
+            <Link to="/brands" className="flex items-center text-green-500 hover:text-green-600  font-medium group">
               View all brands
               <ArrowRight size={18} className="ml-1 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
-            {featuredBrands.map((brand) => (
+            {featugreenBrands.map((brand) => (
               <Link
                 key={brand.id}
                 to={`/brands/${brand.id}`}
@@ -74,13 +74,13 @@ export default function BrandStore() {
                   />
                 </div>
                 <div className="p-1 pt-0 text-center">
-                  <h4 className="font-medium text-gray-900 group-hover:text-red-500 transition-colors">{brand.name}</h4>
+                  <h4 className="font-medium text-gray-900 group-hover:text-green-500 transition-colors">{brand.name}</h4>
                   <div className="flex items-center justify-center">
                     <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                     <span className="text-sm text-gray-500 ml-1 my-2">{brand.rating}</span>
                   </div>
                 </div>
-                <div className="absolute inset-0 border-2 border-transparent group-hover:border-red-400 rounded-xl transition-all duration-300 pointer-events-none" />
+                <div className="absolute inset-0 border-2 border-transparent group-hover:border-green-400 rounded-xl transition-all duration-300 pointer-events-none" />
               </Link>
             ))}
           </div>
@@ -108,12 +108,12 @@ export default function BrandStore() {
                     />
                   </div>
                   <div className="p-4 pt-0 text-center">
-                    <h4 className="font-medium text-gray-900 hover:text-red-500 transition-colors">{brand.name}</h4>
+                    <h4 className="font-medium text-gray-900 hover:text-green-500 transition-colors">{brand.name}</h4>
                     <p className="text-sm text-gray-500 mt-1">{brand.products} products</p>
                   </div>
                 </Link>
                 <div className="px-4 pb-4">
-                  <button className="w-full py-2 bg-red-50 text-red-500 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors">
+                  <button className="w-full py-2 bg-green-50 text-green-500 rounded-lg text-sm font-medium hover:bg-green-100 transition-colors">
                     Shop Now
                   </button>
                 </div>
@@ -123,15 +123,15 @@ export default function BrandStore() {
         </div>
 
         {/* CTA Banner */}
-        <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-2xl overflow-hidden shadow-xl">
+        <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl overflow-hidden shadow-xl">
           <div className="flex flex-col md:flex-row items-center justify-between p-8 md:p-10">
             <div className="text-white mb-6 md:mb-0 md:mr-8">
               <h3 className="text-2xl font-bold mb-2">Become a Verified Seller</h3>
               <p className="text-white/90 mb-4 max-w-lg">
-                Join our marketplace and get your brand featured with millions of potential customers.
+                Join our marketplace and get your brand featugreen with millions of potential customers.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <button className="px-6 py-3 bg-white text-red-600 rounded-lg font-medium hover:bg-opacity-90 transition-colors flex items-center justify-center">
+                <button className="px-6 py-3 bg-white text-green-600 rounded-lg font-medium hover:bg-opacity-90 transition-colors flex items-center justify-center">
                   Register Your Brand
                   <ArrowRight size={16} className="ml-2" />
                 </button>

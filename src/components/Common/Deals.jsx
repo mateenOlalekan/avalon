@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { FaShoppingCart, FaStar, FaStarHalfAlt } from 'react-icons/fa';
-import { ArrowRight, Clock } from 'lucide-react';
-import brands from "../assets/BrandImage/BIdata";
-
+import { FaShoppingCart, FaStar, FaStarHalfAlt, FaRegHeart, FaHeart } from 'react-icons/fa';
+import { ArrowRight, Clock, ChevronRight } from 'lucide-react';
+// import brands from "../../assets/BrandImage/BIdata";
 
 const DealsAndPromotions = () => {
   const deals = [
@@ -14,7 +13,8 @@ const DealsAndPromotions = () => {
       discount: 40,
       rating: 4.5,
       reviews: 128,
-      image: 'https://via.placeholder.com/300x200'
+      image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      isWishlisted: false
     },
     {
       id: 2,
@@ -24,7 +24,8 @@ const DealsAndPromotions = () => {
       discount: 38,
       rating: 4,
       reviews: 86,
-      image: 'https://via.placeholder.com/300x200'
+      image: 'https://images.unsplash.com/photo-1546538915-a9e2c8d1a5e0?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      isWishlisted: false
     },
     {
       id: 3,
@@ -34,17 +35,19 @@ const DealsAndPromotions = () => {
       discount: 40,
       rating: 4.5,
       reviews: 52,
-      image: 'https://via.placeholder.com/300x200'
+      image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      isWishlisted: false
     },
     {
       id: 4,
-      title: 'Designer Leather Handbag',
-      originalPrice: 149.99,
-      currentPrice: 89.99,
+      title: 'Wireless Gaming Mouse',
+      originalPrice: 99.99,
+      currentPrice: 59.99,
       discount: 40,
-      rating: 4.5,
-      reviews: 52,
-      image: 'https://via.placeholder.com/300x200'
+      rating: 4.2,
+      reviews: 76,
+      image: 'https://images.unsplash.com/photo-1527814050087-3793815479db?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+      isWishlisted: false
     }
   ];
 
@@ -52,48 +55,53 @@ const DealsAndPromotions = () => {
   const initialPromotions = [
     {
       id: 1,
-      title: 'Premium Wireless Headphones',
+      title: 'Premium Wireless Headphones with Noise Cancellation',
       originalPrice: 249.99,
       currentPrice: 149.99,
       discount: 40,
       rating: 4.5,
       reviewCount: 128,
-      endDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000) // 3 days from now
+      endDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days from now
+      image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+      isWishlisted: false
     },
     {
       id: 2,
-      title: 'Smart 4K TV - 55 inch',
+      title: 'Smart 4K TV - 55 inch with HDR10+',
       originalPrice: 799.99,
       currentPrice: 499.99,
       discount: 38,
       rating: 4.7,
       reviewCount: 86,
-      endDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000) // 2 days from now
+      endDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days from now
+      image: 'https://images.unsplash.com/photo-1546538915-a9e2c8d1a5e0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+      isWishlisted: false
     },
     {
       id: 3,
-      title: 'Designer Leather Handbag',
+      title: 'Designer Leather Handbag - Premium Edition',
       originalPrice: 149.99,
       currentPrice: 89.99,
       discount: 40,
       rating: 4.3,
       reviewCount: 52,
-      endDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000) // 5 days from now
+      endDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
+      image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+      isWishlisted: false
     }
   ];
 
   const [promotions, setPromotions] = useState(initialPromotions);
+  const [dealItems, setDealItems] = useState(deals);
   const fallbackImg = "https://via.placeholder.com/150";
 
   useEffect(() => {
     const timer = setInterval(() => {
       setPromotions(prevPromotions => 
         prevPromotions.map(promotion => {
-          // Calculate time left for each promotion
           const now = new Date();
           const timeLeft = promotion.endDate - now;
           
-          // If time has expired, set a new end date (optional: you could remove expired promotions)
           if (timeLeft <= 0) {
             return {
               ...promotion,
@@ -103,7 +111,7 @@ const DealsAndPromotions = () => {
           return promotion;
         })
       );
-    }, 1000); // Update every second
+    }, 1000);
 
     return () => clearInterval(timer);
   }, []);
@@ -132,160 +140,189 @@ const DealsAndPromotions = () => {
       <div className="flex items-center">
         {[...Array(5)].map((_, index) => {
           if (index < fullStars) {
-            return <FaStar key={index} className="text-yellow-400" />;
+            return <FaStar key={index} className="text-green-400 text-sm" />;
           }
           if (index === fullStars && hasHalfStar) {
-            return <FaStarHalfAlt key={index} className="text-yellow-400" />;
+            return <FaStarHalfAlt key={index} className="text-green-400 text-sm" />;
           }
-          return <FaStar key={index} className="text-gray-300" />;
+          return <FaStar key={index} className="text-gray-300 text-sm" />;
         })}
-        <span className="ml-2 text-gray-500 text-sm">({rating})</span>
       </div>
     );
   };
 
+  const toggleWishlist = (id, section) => {
+    if (section === 'deals') {
+      setDealItems(prev => prev.map(item => 
+        item.id === id ? {...item, isWishlisted: !item.isWishlisted} : item
+      ));
+    } else {
+      setPromotions(prev => prev.map(item => 
+        item.id === id ? {...item, isWishlisted: !item.isWishlisted} : item
+      ));
+    }
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <div className="inline-block bg-yellow-500 text-white px-4 py-1 rounded-full mb-4">
-          Limited Time Offers
+    <div className="max-w-7xl mx-auto  py-12">
+      {/* Daily Deals Section */}
+      <section className="mb-16">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+          <div>
+            <span className="inline-block bg-green-500 text-white px-4 py-1 rounded-full text-sm font-medium mb-2">
+              Today's Deals
+            </span>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Daily Best Deals</h2>
+          </div>
+          <button className="flex items-center text-green-600 hover:text-green-700 font-medium mt-4 md:mt-0">
+            View all deals <ChevronRight className="ml-1 h-4 w-4" />
+          </button>
         </div>
-        <h2 className="text-3xl font-bold mb-4">Deals & Promotions</h2>
-        <p className="text-gray-600">Don't miss out on these amazing deals - limited stock available!</p>
-      </div>
 
-      {/* Deals Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {deals.map((deal) => (
-          <div 
-            key={deal.id} 
-            className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105"
-          >
-            {/* Discount Badge */}
-            <div className="relative">
-              <div className="absolute top-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm">
-                {deal.discount}% OFF
-              </div>
-              <img 
-                src={deal.image} 
-                alt={deal.title} 
-                className="w-full h-48 object-cover"
-                onError={(e) => {
-                  e.target.src = 'https://via.placeholder.com/300x200';
-                  e.target.onerror = null;
-                }}
-              />
-            </div>
-
-            {/* Deal Details */}
-            <div className="p-4">
-              {/* Product Title */}
-              <h3 className="font-semibold text-[16px] mb-1">{deal.title}</h3>
-
-              {/* Rating */}
-              <div className="mb-1">
-                {renderStarRating(deal.rating)}
-              </div>
-
-              {/* Pricing */}
-              <div className="flex items-center justify-between space-x-2">
-                <span className="text-xl font-bold text-black">${deal.currentPrice}</span>
-                <span className="line-through text-gray-500 text-sm">${deal.originalPrice}</span>
-                <button className="w-fit bg-yellow-400 text-white p-2 rounded-sm flex items-center justify-center hover:bg-gray-800 transition duration-300">
-                  <FaShoppingCart/>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {dealItems.map((deal) => (
+            <div 
+              key={deal.id} 
+              className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100"
+            >
+              <div className="relative">
+                <div className="absolute top-3 left-3 bg-red-600 text-white px-2 py-1 rounded text-xs font-bold">
+                  -{deal.discount}%
+                </div>
+                <button 
+                  onClick={() => toggleWishlist(deal.id, 'deals')}
+                  className="absolute top-3 right-3 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors"
+                >
+                  {deal.isWishlisted ? 
+                    <FaHeart className="text-red-500" /> : 
+                    <FaRegHeart className="text-gray-400" />
+                  }
                 </button>
+                <img 
+                  src={deal.image} 
+                  alt={deal.title} 
+                  className="w-full h-48 object-contain hover:opacity-90 transition-opacity"
+                  onError={(e) => {
+                    e.target.src = fallbackImg;
+                    e.target.onerror = null;
+                  }}
+                />
               </div>
-            </div>
-          </div>
-        ))}
-      </div>
 
-      {/* View All Deals */}
-      <div className="text-center mt-8">
-        <button className="inline-flex items-center p-3 text-white bg-yellow-400 font-semibold rounded-lg hover:text-yellow-400 hover:bg-white border-2 border-yellow-300 hover:transition duration-300">
-          View All Deals
-          <ArrowRight className="ml-1" />
-        </button>
-      </div>
-
-      <h1 className="text-3xl font-bold text-center mb-6 text-yellow-500 mt-20">Limited Time Offers</h1>
-      <p className="text-center text-gray-600 mb-8">Hurry! These deals are ending soon!</p>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {promotions.map((promote) => (
-          <div 
-            key={promote.id} 
-            className="bg-white shadow-lg rounded-lg overflow-hidden relative"
-          >
-            <div className="absolute top-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded">
-              {promote.discount}% OFF
-            </div>
-            
-            <div className="h-64 bg-gray-200 flex items-center justify-center">
-              <img 
-                src={`https://via.placeholder.com/300x300`} 
-                alt={promote.title} 
-                className="max-h-full max-w-full object-contain"
-                onError={(e) => {
-                  e.target.src = 'https://via.placeholder.com/300x300';
-                  e.target.onerror = null;
-                }}
-              />
-            </div>
-            
-            <div className="p-4">
-              <div className="flex items-center mb-1">
-                {renderStarRating(promote.rating)}
-                <span className="text-gray-600 ml-2">({promote.reviewCount})</span>
-              </div>
-              
-              <h2 className="text-xl font-semibold mb-1">{promote.title}</h2>
-              
-              <div className="flex items-center justify-between mb-1">
-                <div>
-                  <span className="text-2xl font-bold text-yellow-400">${promote.currentPrice}</span>
-                  <span className="line-through text-gray-500 ml-2">${promote.originalPrice}</span>
+              <div className="p-4">
+                <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{deal.title}</h3>
+                
+                <div className="flex items-center mb-2">
+                  {renderStarRating(deal.rating)}
+                  <span className="text-gray-500 text-xs ml-1">({deal.reviews})</span>
                 </div>
-              </div>
-              <div className='flex justify-between items-center'>
-                <div className="flex items-center text-sm text-yellow-400 font-medium">
-                  <Clock className="mr-1 h-4 w-4" />
-                  Ends in: {formatTimeLeft(promote.endDate)}
-                </div>
-                <div className='p-2 rounded-lg bg-yellow-400 hover:scale-105 transition duration-600'>
-                  <FaShoppingCart className="flex text-lg items-center justify-center text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      
-      <div className="text-center mt-8 w-full flex justify-center ">
-        <button className="bg-yellow-400 flex justify-center items-center text-white hover:text-yellow-400 border-2 hover:bg-white hover:border-yellow-400 font-semibold p-3 rounded-lg">
-          <span>View All Deals</span> <ArrowRight className="ml-1" />
-        </button>
-      </div>
 
-      <div className='w-full h-full'>
-        <div className='text-center'>Offical Stores</div>
-      </div>
-
-      <div className='  bg-gray-400 '>
-        <div className='flex flex-col my-10 bg-yellow-300 rounded-t-md'>
-          <h1 className="text-3xl font-normal text-center py-3  text-white gap-2 ">Offical Stories</h1>
-        </div>
-
-        <div className='grid grid-cols-6 gap-3 px-2  pb-2'>
-                {brands.map((brand) => (
-                  <div key={brand.id} className='  w-full h-full cursor-pointer '>
-                    <img src={brand.img} alt={brand.id} className='w-full h-full object-contain hover:scale-95 duration-700 transition-all' />
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-lg font-bold text-gray-900">${deal.currentPrice.toFixed(2)}</span>
+                    <span className="text-sm text-gray-500 line-through ml-2">${deal.originalPrice.toFixed(2)}</span>
                   </div>
-                ))}
+                  <button className="bg-green-500 hover:bg-green-600 text-white p-2 rounded-full transition-colors">
+                    <FaShoppingCart className="text-sm" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-      
+      </section>
+
+      {/* Flash Sales Section */}
+      <section className="mb-16">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+          <div>
+            <span className="inline-block bg-red-600 text-white px-4 py-1 rounded-full text-sm font-medium mb-2">
+              Limited Time
+            </span>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Flash Sales</h2>
+            <p className="text-gray-600 mt-1">Hurry! These deals won't last long</p>
+          </div>
+          <div className="mt-4 md:mt-0">
+            <div className="flex items-center bg-red-100 px-4 py-2 rounded-lg">
+              <Clock className="h-5 w-5 text-red-600 mr-2" />
+              <span className="text-red-600 font-medium">Ends in: </span>
+              <span className="ml-2 font-bold text-red-600">
+                {formatTimeLeft(new Date(Date.now() + 24 * 60 * 60 * 1000))}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {promotions.map((promotion) => (
+            <div 
+              key={promotion.id} 
+              className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 relative"
+            >
+              <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                -{promotion.discount}%
+              </div>
+              
+              <button 
+                onClick={() => toggleWishlist(promotion.id, 'promotions')}
+                className="absolute top-3 left-3 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors z-10"
+              >
+                {promotion.isWishlisted ? 
+                  <FaHeart className="text-red-500" /> : 
+                  <FaRegHeart className="text-gray-400" />
+                }
+              </button>
+              
+              <div className="h-64 bg-gray-50 flex items-center justify-center p-4">
+                <img 
+                  src={promotion.image} 
+                  alt={promotion.title} 
+                  className="max-h-full max-w-full object-contain hover:scale-105 transition-transform"
+                  onError={(e) => {
+                    e.target.src = fallbackImg;
+                    e.target.onerror = null;
+                  }}
+                />
+              </div>
+              
+              <div className="p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center">
+                    {renderStarRating(promotion.rating)}
+                    <span className="text-gray-500 text-xs ml-1">({promotion.reviewCount})</span>
+                  </div>
+                  <div className="flex items-center text-xs text-red-600 font-medium">
+                    <Clock className="mr-1 h-3 w-3" />
+                    {formatTimeLeft(promotion.endDate)}
+                  </div>
+                </div>
+                
+                <h2 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{promotion.title}</h2>
+                
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-xl font-bold text-gray-900">${promotion.currentPrice.toFixed(2)}</span>
+                    <span className="text-sm text-gray-500 line-through ml-2">${promotion.originalPrice.toFixed(2)}</span>
+                  </div>
+                  <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center">
+                    <FaShoppingCart className="mr-2" />
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-10">
+          <button className="bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-8 rounded-lg inline-flex items-center transition-colors">
+            View All Flash Sales
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </button>
+        </div>
+      </section>
+
+
     </div>
   );
 };

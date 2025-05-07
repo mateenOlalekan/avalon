@@ -52,7 +52,7 @@ const slides = [
 
 const HeroSlider = () => {
   return (
-    <div className="lg:w-10/12 w-full relative h-[450px]">
+    <div className="lg:w-10/12 w-full relative h-[455px] rounded-xl overflow-hidden ">
       {/* Swiper Component */}
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
@@ -68,7 +68,7 @@ const HeroSlider = () => {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="relative w-full h-[450px]">
+            <div className="relative w-full h-[455px] rounded-xl overflow-hidden">
               {/* Background Image */}
               <img
                 src={slide.image}
@@ -84,7 +84,7 @@ const HeroSlider = () => {
               <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center py-6 px-15 text-white">
                 <h2 className="text-3xl md:text-5xl font-bold">{slide.title}</h2>
                 <p className="mt-2 text-lg md:text-xl">{slide.description}</p>
-                <button className="mt-4 bg-red-600 hover:bg-red-600 transition-all duration-500 text-white font-semibold px-6 py-2 rounded-full ">
+                <button className="mt-4 bg-green-600 hover:bg-green-600 transition-all duration-500 text-white font-semibold px-6 py-2 rounded-full ">
                   {slide.cta}
                 </button>
               </div>

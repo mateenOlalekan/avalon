@@ -13,11 +13,11 @@ const ProductCard = ({ product, addToCart, currency }) => {
           className="w-full h-48 object-contain p-4" 
         />
         {product.discount > 0 && (
-          <span className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
+          <span className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
             -{product.discount}%
           </span>
         )}
-        <button className="absolute top-2 left-2 text-gray-500 hover:text-red-500">
+        <button className="absolute top-2 left-2 text-gray-500 hover:text-green-500">
           <Heart size={20} />
         </button>
       </div>
@@ -37,7 +37,7 @@ const ProductCard = ({ product, addToCart, currency }) => {
         </div>
         <button 
           onClick={() => addToCart(product)}
-          className="bg-red-500 text-white w-full p-2 rounded hover:bg-red-600 flex items-center justify-center gap-2"
+          className="bg-green-500 text-white w-full p-2 rounded hover:bg-green-600 flex items-center justify-center gap-2"
         >
           <ShoppingCart size={16} />
           Add to Cart

@@ -39,9 +39,9 @@ const CategorySidebar = () => {
   };
   
   return (
-    <div className="w-full h-[450px] lg:w-2/12 lg:block hidden bg-white p-4 border-r border-gray-200 shadow-sm">
+    <div className="w-full h-full lg:w-2/12 lg:block hidden bg-white p-4 border-[1px] rounded-xl border-gray-200 shadow-sm">
       <div className="flex flex-col gap-1">
-        <h2 className='font-bold text-lg my-2'>Categories</h2>
+        <h2 className='font-bold text-lg my-1.5'>Categories</h2>
         {categories.map((category, index) => {
           const Icon = category.icon;
           const isActive = activeCategory === category.id;
@@ -53,12 +53,12 @@ const CategorySidebar = () => {
             >
               <div
                 className={`flex items-center gap-1 w-full py-1 px-3 cursor-pointer rounded-md transition-colors ${
-                  isActive ? 'bg-red-100 text-red-600' : 'hover:bg-gray-100'
+                  isActive ? 'bg-green-100 text-green-600' : 'hover:bg-gray-100'
                 }`}
                 onClick={() => handleCategoryClick(category.id)}
               >
-                <Icon className={isActive ? "text-red-600" : "text-gray-600"} size={20} />
-                <span className={`text-sm ${isActive ? "text-red-600 font-medium" : "text-gray-700"}`}>
+                <Icon className={isActive ? "text-green-600" : "text-gray-600"} size={20} />
+                <span className={`text-sm ${isActive ? "text-green-600 font-medium" : "text-gray-700"}`}>
                   {category.name}
                 </span>
               </div>
@@ -72,7 +72,3 @@ const CategorySidebar = () => {
 
 export default CategorySidebar;
 
-const brands = [
-  'LG', 'Samsung', 'Hisense', 'Nexus', 'Scanfrost', 
-  'Haier Thermocool', 'Midea', 'Binatone', 'Maxi'
-];

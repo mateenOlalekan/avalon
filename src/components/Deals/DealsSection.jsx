@@ -230,7 +230,7 @@ const ProductCard = ({ product }) => {
           
           {/* Discount badge */}
           {product.discount && (
-            <span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+            <span className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">
               {product.discount}
             </span>
           )}
@@ -253,7 +253,7 @@ const ProductCard = ({ product }) => {
           >
             <Heart 
               size={18} 
-              className={isFavorite ? "fill-red-500 text-red-500" : "text-gray-400"} 
+              className={isFavorite ? "fill-green-500 text-green-500" : "text-gray-400"} 
             />
           </button>
         </div>
@@ -265,7 +265,7 @@ const ProductCard = ({ product }) => {
         
         {/* Price */}
         <div className="mb-1">
-          <span className="text-lg font-bold text-red-600">
+          <span className="text-lg font-bold text-green-600">
             ${product.newPrice}
           </span>
           {product.oldPrice && (
@@ -319,7 +319,7 @@ const CategorySection = ({ category }) => {
   return (
     <section className="mb-12">
       <div className="flex items-center mb-3">
-        <div className="mr-2 text-red-500">
+        <div className="mr-2 text-green-500">
           {category.icon}
         </div>
         <h2 className="text-2xl font-bold text-gray-900">{category.title}</h2>
@@ -336,7 +336,7 @@ const CategorySection = ({ category }) => {
       <div className="mt-6 text-center">
         <Link
           to={`/category/${category.title.toLowerCase().replace(/\s+/g, '-')}`}
-          className="inline-flex items-center text-red-600 hover:text-red-700 shadow-lg p-4 border-2 border-red-500 rounded-lg font-medium group"
+          className="inline-flex items-center text-green-600 hover:text-green-700 shadow-lg p-4 border-2 border-green-500 rounded-lg font-medium group"
         >
           View all {category.title}
           <ChevronRight size={18} className="ml-1 transition-transform group-hover:translate-x-1" />

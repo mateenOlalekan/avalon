@@ -29,7 +29,7 @@ const CountdownTimer = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-6 rounded-lg shadow-lg">
+    <div className="bg-green-600 text-white p-6 rounded-lg shadow-lg">
       <h3 className="text-xl font-semibold mb-4 text-center">Flash Sale Ends In</h3>
       <div className="flex justify-center space-x-4">
         <div className="flex flex-col items-center">

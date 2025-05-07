@@ -1,105 +1,110 @@
 import { useLocation, Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import "./App.css";
+
 // Layout Components
-import Top from './components/Common/Topbar';
-import DashLayout from './components/DashLayout/DashLayout';
+const Top = lazy(() => import('./components/Common/Navbar'));
+const DashLayout = lazy(() => import('./components/DashLayout/DashLayout'));
+const Loading = lazy(() => import('./Pages/Loading'));
+
 
 // Public Pages
-import Home from './Pages/homepage';
-import Cart from './Pages/cart';
-import WishList from './Pages/wishList';
-import OrderHistory from './Pages/orderHistory';
-import Orderdetails from './Pages/orderDetails';
-import NotFound from './Pages/noFound';
+const Home = lazy(() => import('./Pages/homepage'));
+const Cart = lazy(() => import('./Pages/cart'));
+const WishList = lazy(() => import('./Pages/wishList'));
+const OrderHistory = lazy(() => import('./Pages/orderHistory'));
+const Orderdetails = lazy(() => import('./Pages/orderDetails'));
+const NotFound = lazy(() => import('./Pages/noFound'));
 
 // Authentication Pages
-import Signin from '../src/Auth/Signin';
-import Signup from '../src/Auth/Signup';
+const Login = lazy(() => import('./Auth/Login'));
+const Signup = lazy(() => import('./Auth/Register'));
 
 // Category Pages
-import ElectronicsPage from './pages/categories/ElectronicsPage';
-import FashionPage from './pages/categories/FashionPage';
-import AppliancesPage from './pages/categories/AppliancesPage';
-import PhonesTabletsPage from './pages/categories/PhonesAndTabletsPage';
-import HealthBeautyPage from './pages/categories/HealthAndBeautyPage';
-import BabyProductsPage from './pages/categories/BabyProductsPage';
-import SupermarketPage from './pages/categories/SupermarketPage';
-import GamingPage from './pages/categories/GamingPage';
-import MusicalInstrumentsPage from './pages/categories/MusiclaIInstrumentsPage';
-import OtherCategoriesPage from './pages/categories/OtherCategoriesPage';
-import ComputingPage from './pages/categories/ComputingPage';
+const ElectronicsPage = lazy(() => import('./pages/categories/ElectronicsPage'));
+const FashionPage = lazy(() => import('./pages/categories/FashionPage'));
+const AppliancesPage = lazy(() => import('./pages/categories/AppliancesPage'));
+const PhonesTabletsPage = lazy(() => import('./pages/categories/PhonesAndTabletsPage'));
+const HealthBeautyPage = lazy(() => import('./pages/categories/HealthAndBeautyPage'));
+const BabyProductsPage = lazy(() => import('./pages/categories/BabyProductsPage'));
+const SupermarketPage = lazy(() => import('./pages/categories/SupermarketPage'));
+const GamingPage = lazy(() => import('./pages/categories/GamingPage'));
+const MusicalInstrumentsPage = lazy(() => import('./pages/categories/MusiclaIInstrumentsPage'));
+const OtherCategoriesPage = lazy(() => import('./pages/categories/OtherCategoriesPage'));
+const ComputingPage = lazy(() => import('./pages/categories/ComputingPage'));
 
 // Dashboard Pages
-import Dashboard from './Pages/DashBoard/dashboard';
-import AnalyticsPage from './Pages/DashBoard/analyticsPage';
-import ProductsPage from './Pages/DashBoard/productsPage';
-import OrdersPage from './Pages/DashBoard/ordersPage';
-import CustomersPage from './Pages/DashBoard/customersPage';
-import SettingsPage from './Pages/DashBoard/settingsPage';
-import ChatsPage from './Pages/DashBoard/chatsPage';
-import CouponsPage from './Pages/DashBoard/couponsPage';
-import IntegrationsPage from './Pages/DashBoard/integrationsPage';
-import LogoutPage from './Pages/logOut';
+const Dashboard = lazy(() => import('./Pages/DashBoard/dashboard'));
+const AnalyticsPage = lazy(() => import('./Pages/DashBoard/analyticsPage'));
+const ProductsPage = lazy(() => import('./Pages/DashBoard/productsPage'));
+const OrdersPage = lazy(() => import('./Pages/DashBoard/ordersPage'));
+const CustomersPage = lazy(() => import('./Pages/DashBoard/customersPage'));
+const SettingsPage = lazy(() => import('./Pages/DashBoard/settingsPage'));
+const ChatsPage = lazy(() => import('./Pages/DashBoard/chatsPage'));
+const CouponsPage = lazy(() => import('./Pages/DashBoard/couponsPage'));
+const IntegrationsPage = lazy(() => import('./Pages/DashBoard/integrationsPage'));
+const LogoutPage = lazy(() => import('./Pages/logOut'));
+
+// Create a loading component
+
 
 function App() {
   const location = useLocation();
-  
-  // Define paths where the Topbar should be hidden
-  const hiddenNavbarPaths = ["/signin", "/register", "/dashboard", "/*"];
+  const hiddenNavbarPaths = ["/signin", "/register", "/dashboard", "/*","/login"];
   const shouldHideNavbar = hiddenNavbarPaths.some((path) => 
     location.pathname.startsWith(path)
   );
   
   return (
     <>
-      {!shouldHideNavbar && <Top />}
-      
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<WishList />} />
-        <Route path="/orderhistory" element={<OrderHistory />} />
-        <Route path="/orderDetails/:id" element={<Orderdetails />} />
-        <Route path="/orderDetails" element={<Orderdetails />} />
+      <Suspense fallback={<Loading />}>
+        {!shouldHideNavbar && <Top />}
         
-        {/* Authentication Routes */}
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/register" element={<Signup />} />
-        
-        {/* Category Routes */}
-        <Route path="/category/electronics" element={<ElectronicsPage />} />
-        <Route path="/category/fashion" element={<FashionPage />} />
-        <Route path="/category/appliances" element={<AppliancesPage />} />
-        <Route path="/category/phones-tablets" element={<PhonesTabletsPage />} />
-        <Route path="/category/health-beauty" element={<HealthBeautyPage />} />
-        <Route path="/category/baby-products" element={<BabyProductsPage />} />
-        <Route path="/category/supermarket" element={<SupermarketPage />} />
-        <Route path="/category/gaming" element={<GamingPage />} />
-        <Route path="/category/musical-instruments" element={<MusicalInstrumentsPage />} />
-        <Route path="/category/other-categories" element={<OtherCategoriesPage />} />
-        <Route path="/category/computing" element={<ComputingPage />} />
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<WishList />} />
+          <Route path="/orderhistory" element={<OrderHistory />} />
+          <Route path="/orderDetails/:id" element={<Orderdetails />} />
+          <Route path="/orderDetails" element={<Orderdetails />} />
+          
+          {/* Authentication Routes */}
+          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Signup />} />
+          
+          {/* Category Routes */}
+          <Route path="/category/electronics" element={<ElectronicsPage />} />
+          <Route path="/category/fashion" element={<FashionPage />} />
+          <Route path="/category/appliances" element={<AppliancesPage />} />
+          <Route path="/category/phones-tablets" element={<PhonesTabletsPage />} />
+          <Route path="/category/health-beauty" element={<HealthBeautyPage />} />
+          <Route path="/category/baby-products" element={<BabyProductsPage />} />
+          <Route path="/category/supermarket" element={<SupermarketPage />} />
+          <Route path="/category/gaming" element={<GamingPage />} />
+          <Route path="/category/musical-instruments" element={<MusicalInstrumentsPage />} />
+          <Route path="/category/other-categories" element={<OtherCategoriesPage />} />
+          <Route path="/category/computing" element={<ComputingPage />} />
 
-        
-        {/* Dashboard Routes */}
-        <Route path="/dashboard/*" element={<DashLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="analytics" element={<AnalyticsPage />} />
-          <Route path="products" element={<ProductsPage />} />
-          <Route path="orders" element={<OrdersPage />} />
-          <Route path="customers" element={<CustomersPage />} />
-          <Route path="settings" element={<SettingsPage />} />
-          <Route path="chats" element={<ChatsPage />} />
-          <Route path="coupons" element={<CouponsPage />} />
-          <Route path="integrations" element={<IntegrationsPage />} />
-          <Route path="logout" element={<LogoutPage />} />
-
-
-        </Route>
-        
-        {/* Fallback Route */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          
+          {/* Dashboard Routes */}
+          <Route path="/dashboard/*" element={<DashLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="analytics" element={<AnalyticsPage />} />
+            <Route path="products" element={<ProductsPage />} />
+            <Route path="orders" element={<OrdersPage />} />
+            <Route path="customers" element={<CustomersPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="chats" element={<ChatsPage />} />
+            <Route path="coupons" element={<CouponsPage />} />
+            <Route path="integrations" element={<IntegrationsPage />} />
+            <Route path="logout" element={<LogoutPage />} />
+          </Route>
+          
+          {/* Fallback Route */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }

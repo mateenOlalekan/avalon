@@ -44,7 +44,7 @@ const FiltersSidebar = ({
             {categories.map((category) => (
               <li key={category}>
                 <button 
-                  className={`w-full text-left p-1 hover:text-red-500 ${activeCategory === category ? 'text-red-500 font-medium' : ''}`}
+                  className={`w-full text-left p-1 hover:text-green-500 ${activeCategory === category ? 'text-green-500 font-medium' : ''}`}
                   onClick={() => setActiveCategory(category)}
                 >
                   {category}

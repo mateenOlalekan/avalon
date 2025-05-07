@@ -54,32 +54,32 @@ export default function EnhancedFooter() {
       {/* Benefits Section */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-6">
-          <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border-l-4 border-red-500">
-            <MdLocalShipping className="text-red-600 text-4xl flex-shrink-0" />
+          <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border-l-4 border-green-500">
+            <MdLocalShipping className="text-green-600 text-4xl flex-shrink-0" />
             <div>
               <h5 className="font-bold text-gray-900 text-lg">Free Delivery</h5>
               <p className="text-gray-600 text-sm">Free shipping over $100</p>
             </div>
           </div>
 
-          <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border-l-4 border-red-500">
-            <MdSecurity className="text-red-600 text-4xl flex-shrink-0" />
+          <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border-l-4 border-green-500">
+            <MdSecurity className="text-green-600 text-4xl flex-shrink-0" />
             <div>
               <h5 className="font-bold text-gray-900 text-lg">Money Back Guarantee</h5>
               <p className="text-gray-600 text-sm">Quality checked by our team</p>
             </div>
           </div>
 
-          <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border-l-4 border-red-500">
-            <MdSupportAgent className="text-red-600 text-4xl flex-shrink-0" />
+          <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border-l-4 border-green-500">
+            <MdSupportAgent className="text-green-600 text-4xl flex-shrink-0" />
             <div>
               <h5 className="font-bold text-gray-900 text-lg">Customer Support</h5>
               <p className="text-gray-600 text-sm">Friendly 24/7 customer support</p>
             </div>
           </div>
           
-          <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border-l-4 border-red-500">
-            <Gift className="text-red-600 text-4xl flex-shrink-0" />
+          <div className="flex items-center p-4 space-x-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 border-l-4 border-green-500">
+            <Gift className="text-green-600 text-4xl flex-shrink-0" />
             <div>
               <h5 className="font-bold text-gray-900 text-lg">Special Offers</h5>
               <p className="text-gray-600 text-sm">New deals every week</p>
@@ -97,10 +97,10 @@ export default function EnhancedFooter() {
               {/* Logo */}
               <div className="flex items-center gap-2">
                 <h3 className="font-bold text-3xl text-white ml-2">
-                  <span className="text-red-400">Luxe</span>
+                  <span className="text-green-400">Luxe</span>
                   <span className="text-white">Mart</span>
                 </h3>
-                <ShoppingBag className="text-red-400" size={24} />
+                <ShoppingBag className="text-green-400" size={24} />
               </div>
               
               <p className="text-gray-300 text-sm leading-relaxed">
@@ -112,19 +112,19 @@ export default function EnhancedFooter() {
               {/* Contact Info */}
               <div className="space-y-4 pt-2">
                 <div className="flex items-center space-x-3">
-                  <Phone size={16} className="text-red-400" />
+                  <Phone size={16} className="text-green-400" />
                   <span className="text-gray-200">+91 9500 888 33</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Clock size={16} className="text-red-400" />
+                  <Clock size={16} className="text-green-400" />
                   <span className="text-gray-200">Mon-Fri: 10:00 AM To 6:00 PM</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <MdEmail className="text-red-400" size={16} />
+                  <MdEmail className="text-green-400" size={16} />
                   <span className="text-gray-200">support@example.com</span>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <MapPin size={16} className="text-red-400 mt-1 flex-shrink-0" />
+                  <MapPin size={16} className="text-green-400 mt-1 flex-shrink-0" />
                   <span className="text-gray-200">58 West Temple Drive Ashburn, VA 20147</span>
                 </div>
               </div>
@@ -144,7 +144,7 @@ export default function EnhancedFooter() {
                   <li key={item}>
                     <a 
                       href="#" 
-                      className="hover:text-red-400 transition-colors flex items-center group text-gray-300 text-sm"
+                      className="hover:text-green-400 transition-colors flex items-center group text-gray-300 text-sm"
                     >
                       <span className="mr-2 group-hover:translate-x-1 transition-transform duration-300">›</span> {item}
                     </a>
@@ -167,7 +167,7 @@ export default function EnhancedFooter() {
                   <li key={item}>
                     <a 
                       href="#" 
-                      className="hover:text-red-400 transition-colors flex items-center group text-gray-300 text-sm"
+                      className="hover:text-green-400 transition-colors flex items-center group text-gray-300 text-sm"
                     >
                       <span className="mr-2 group-hover:translate-x-1 transition-transform duration-300">›</span> {item}
                     </a>
@@ -191,7 +191,7 @@ export default function EnhancedFooter() {
                   <li key={item}>
                     <a 
                       href="#" 
-                      className="hover:text-red-400 transition-colors flex items-center group text-gray-300 text-sm"
+                      className="hover:text-green-400 transition-colors flex items-center group text-gray-300 text-sm"
                     >
                       <span className="mr-2 group-hover:translate-x-1 transition-transform duration-300">›</span> {item}
                     </a>
@@ -238,7 +238,7 @@ export default function EnhancedFooter() {
                       key={index} 
                       href="#" 
                       aria-label={label}
-                      className="bg-gray-700 p-2 rounded-full hover:bg-red-500 transition duration-300"
+                      className="bg-gray-700 p-2 rounded-full hover:bg-green-500 transition duration-300"
                       title={label}
                     >
                       <Icon size={16} />
@@ -272,11 +272,11 @@ export default function EnhancedFooter() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full p-3 pl-4 text-gray-800 bg-white border-none rounded-l-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
+                    className="w-full p-3 pl-4 text-gray-800 bg-white border-none rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
                   />
                   <button 
                     type="submit"
-                    className="bg-red-500 text-white py-3 px-6 rounded-r-lg hover:bg-red-600 transition duration-300 font-medium flex items-center text-sm"
+                    className="bg-green-500 text-white py-3 px-6 rounded-r-lg hover:bg-green-600 transition duration-300 font-medium flex items-center text-sm"
                   >
                     <Send className="mr-2" size={16} />
                     Subscribe
@@ -300,7 +300,7 @@ export default function EnhancedFooter() {
                   <select 
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
-                    className="bg-gray-700 text-white rounded py-2 px-3 appearance-none pr-8 text-sm focus:outline-none focus:ring-1 focus:ring-red-400"
+                    className="bg-gray-700 text-white rounded py-2 px-3 appearance-none pr-8 text-sm focus:outline-none focus:ring-1 focus:ring-green-400"
                   >
                     {['English', 'Spanish', 'French', 'German', 'Japanese'].map(lang => (
                       <option key={lang} value={lang}>{lang}</option>
@@ -313,7 +313,7 @@ export default function EnhancedFooter() {
                   <select 
                     value={currency}
                     onChange={(e) => setCurrency(e.target.value)}
-                    className="bg-gray-700 text-white rounded py-2 px-3 appearance-none pr-8 text-sm focus:outline-none focus:ring-1 focus:ring-red-400"
+                    className="bg-gray-700 text-white rounded py-2 px-3 appearance-none pr-8 text-sm focus:outline-none focus:ring-1 focus:ring-green-400"
                   >
                     {['USD', 'EUR', 'GBP', 'CAD', 'AUD'].map(curr => (
                       <option key={curr} value={curr}>{curr}</option>
@@ -324,7 +324,7 @@ export default function EnhancedFooter() {
               </div>
               
               <div className="flex items-center">
-                <Award className="mr-2 text-red-400" size={20} />
+                <Award className="mr-2 text-green-400" size={20} />
                 <span className="text-gray-300 text-sm">Certified Secure Online Shopping</span>
               </div>
             </div>
@@ -348,7 +348,7 @@ export default function EnhancedFooter() {
                   <a 
                     key={item} 
                     href="#" 
-                    className="hover:text-red-400 transition-colors whitespace-nowrap"
+                    className="hover:text-green-400 transition-colors whitespace-nowrap"
                   >
                     {item}
                   </a>
@@ -371,7 +371,7 @@ export default function EnhancedFooter() {
       {showScrollTop && (
         <button 
           onClick={scrollToTop}
-          className="fixed right-8 bottom-8 bg-red-500 text-white p-3 rounded-full shadow-lg hover:bg-red-600 transition-all duration-300 z-50 flex items-center justify-center"
+          className="fixed right-8 bottom-8 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300 z-50 flex items-center justify-center"
           aria-label="Scroll to top"
         >
           <ArrowUp size={20} />
